@@ -18,6 +18,7 @@ group :test do
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "timecop"
+  gem 'rspec-rails', '~> 2.0'
 end
 
 group :development,:test do
