@@ -19,3 +19,8 @@ group :test do
   gem "factory_girl_rails"
   gem "timecop"
 end
+
+group :development,:test do
+  gem "pry"
+  gem "pry-debugger"
+end
