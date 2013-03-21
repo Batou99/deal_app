@@ -15,7 +15,14 @@ end
 gem 'jquery-rails', '~> 2.0.2'
 
 group :test do
-  gem "factory_girl"
-  gem "factory_girl_rails"
-  gem "timecop"
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'timecop'
+  gem 'rspec-rails', '~> 2.0'
+  gem 'database_cleaner'
+end
+
+group :development,:test do
+  gem 'pry'
+  gem 'pry-debugger'
 end
