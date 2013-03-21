@@ -4,6 +4,7 @@ gem 'rails', '3.2.1'
 
 gem 'sqlite3'
 gem 'newrelic_rpm'
+gem 'thin'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
