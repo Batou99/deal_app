@@ -13,5 +13,6 @@ module DealSite
     config.assets.enabled = true
     config.assets.version = '1.0'
     config.assets.paths << Rails.root.join("app", "themes")
+    config.assets.precompile = ['*.js*', '*.css*', '*.png']
   end
 end
