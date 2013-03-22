@@ -2,6 +2,7 @@ class Deal < ActiveRecord::Base
   belongs_to :advertiser
 
   validates_presence_of :advertiser, :value, :price, :description, :start_at, :end_at
+  validates_uniqueness_of :description, scope: [:advertiser_id, :start_at, :end_at]
 
   def over?
     Time.zone.now > end_at

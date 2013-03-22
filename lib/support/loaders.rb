@@ -4,15 +4,15 @@ module Importer
       @subst = subst
       @line_regexp = line_regexp
       @num_of_group_captures = line_regexp.source.split(capture).count-1
-      raise "No group captures defined" if @num_of_group_captures <= 0
+      raise "No group captures defined" if @num_of_group_captures == 0
     end
 
     def parse_file(file, header=false)
       lines = IO.readlines(file)
       # Remove first line if is a header
       lines = lines[1..-1] if header
-      lines.each { |line|  
-        line.gsub!(@line_regexp,subst_line)
+      lines.map! { |line|  
+        line.gsub(@line_regexp,subst_line).gsub(/\n$/,"")
       }
       import(lines)
     end
@@ -23,10 +23,7 @@ module Importer
 
     private
     def subst_line
-      line = 1.upto(@num_of_group_captures).to_a.join("#{@subst}\\")
-      #1..upto(@num_of_group_captures).each { |group_capture|  
-        #line+="\\group_capture"
-      #}
+      line = 1.upto(@num_of_group_captures+1).to_a.join("#{@subst}\\")
       "\\#{line}"
     end
   end
@@ -41,9 +38,11 @@ module Importer
     end
 
     def import(lines)
+      pub = Publisher.find_or_create_by_name('Daily Planet',theme: 'entertainment')
       lines.each { |line|  
         elems = line.split(";")
-
+        adv = Advertiser.find_or_create_by_name(elems[0],publisher: pub)
+        Deal.where(advertiser_id: adv[:id], start_at: elems[1], end_at: elems[2], description: elems[3], price: elems[4], value: elems[5]).first_or_create if elems.size == 6 # Do not process incomplete lines
       }
     end
   end
