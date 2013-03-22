@@ -8,6 +8,7 @@ When we query every deal we get a list of all deals, but only of the data contai
 
 ### Solution
 Include the necessary fields in the query using **:include**
+The matrics have been made with **NewRelic**
 
 ### Other solutions
 We could have used a page cache and a cache sweeper to cache the whole page.
